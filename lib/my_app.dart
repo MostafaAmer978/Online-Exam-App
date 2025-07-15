@@ -3,7 +3,6 @@ import 'package:online_exam_app/config/theme/app_theme.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
