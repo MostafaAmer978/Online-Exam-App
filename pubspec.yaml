@@ -21,6 +21,8 @@ dependencies:
   json_annotation: ^4.9.0
   injectable:
   get_it:
+  flutter_screenutil: ^5.9.3
+  top_snackbar_flutter: ^3.3.0
 
 # dev_dependencies specify packages that are used by the code in this package.
 dev_dependencies:

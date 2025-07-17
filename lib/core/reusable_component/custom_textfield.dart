@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? label;
   final int? maxLength;
   final TextStyle? textStyle;
   final String? hintText;
-  final TextStyle? hintStyle;
   final double borderRadius;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
@@ -16,13 +16,19 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final Color fillColor;
   final FloatingLabelBehavior? floatingLabelBehavior;
-
+  final EdgeInsetsGeometry contentPadding;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final Function(String)? onFieldSubmitted;
   const CustomTextFormField({
+    this.onFieldSubmitted,
+    this.textInputAction,
     super.key,
+    this.focusNode,
     this.label,
     this.maxLength,
+    this.contentPadding = const EdgeInsetsGeometry.all(14),
     this.textStyle,
-    this.hintStyle,
     this.controller,
     this.obscureText = false,
     this.keyboardType,
@@ -40,17 +46,26 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       cursorColor: Colors.blue,
       style: textStyle,
+
+      focusNode: focusNode,
+      textInputAction: textInputAction,
+      onFieldSubmitted: onFieldSubmitted,
       inputFormatters: [LengthLimitingTextInputFormatter(maxLength)],
       validator: validator,
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+        contentPadding: contentPadding,
         fillColor: fillColor,
         filled: true,
         labelText: label,
+        labelStyle: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
+          fontSize: 16.sp,
+        ),
         hintText: hintText,
-        hintStyle: hintStyle,
+        hintStyle: TextStyle(color: Colors.grey, fontSize: 14.sp),
         suffixIcon: suffixIcon,
         floatingLabelBehavior: floatingLabelBehavior,
         border: OutlineInputBorder(
@@ -61,6 +76,9 @@ class CustomTextFormField extends StatelessWidget {
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
