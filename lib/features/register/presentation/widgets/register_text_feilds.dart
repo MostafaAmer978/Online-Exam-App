@@ -16,7 +16,6 @@ class RegisterTextFields extends StatefulWidget {
 }
 
 class _RegisterTextFieldsState extends State<RegisterTextFields> {
-  // ✅ FocusNodes لكل حقل
   final _usernameFocus = FocusNode();
   final _firstNameFocus = FocusNode();
   final _lastNameFocus = FocusNode();
@@ -41,7 +40,6 @@ class _RegisterTextFieldsState extends State<RegisterTextFields> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        /// ✅ Username
         BlocSelector<RegisterCubit, RegisterState, TextEditingController>(
           selector: (state) => state.usernameController,
           builder: (context, controller) {
@@ -60,7 +58,6 @@ class _RegisterTextFieldsState extends State<RegisterTextFields> {
         ),
         SizedBox(height: 14.h),
 
-        /// ✅ First + Last Name
         Row(
           children: [
             Expanded(
@@ -118,7 +115,6 @@ class _RegisterTextFieldsState extends State<RegisterTextFields> {
         ),
         SizedBox(height: 14.h),
 
-        /// ✅ Email
         BlocSelector<RegisterCubit, RegisterState, TextEditingController>(
           selector: (state) => state.emailController,
           builder: (context, controller) {
@@ -138,7 +134,6 @@ class _RegisterTextFieldsState extends State<RegisterTextFields> {
         ),
         SizedBox(height: 14.h),
 
-        /// ✅ Password + Confirm Password
         Row(
           children: [
             Expanded(
@@ -159,7 +154,6 @@ class _RegisterTextFieldsState extends State<RegisterTextFields> {
 
         SizedBox(height: 14.h),
 
-        /// ✅ Phone
         BlocSelector<RegisterCubit, RegisterState, TextEditingController>(
           selector: (state) => state.phoneController,
           builder: (context, controller) {
@@ -173,7 +167,6 @@ class _RegisterTextFieldsState extends State<RegisterTextFields> {
               focusNode: _phoneFocus,
               textInputAction: TextInputAction.done,
               onFieldSubmitted: (_) {
-                /// ✅ آخر حقل → يعمل Submit تلقائي
                 context.read<RegisterCubit>().register();
               },
             );
