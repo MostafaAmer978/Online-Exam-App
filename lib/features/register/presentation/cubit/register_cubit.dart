@@ -41,7 +41,6 @@ class RegisterCubit extends Cubit<RegisterState> {
     final String phone = state.phoneController.text;
 
     emit(state.copyWith(registerLoadingState: true));
-    print('Loading started');
     final result = await registerUserCase.call(
       username,
       firstName,
