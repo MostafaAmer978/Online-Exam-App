@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-
+import 'core/di/di.dart';
 import 'my_app.dart';
 
 void main() {
-  runApp( MyApp(),);
+  configureDependencies();
+  runApp(MyApp());
 }
-
-
