@@ -8,7 +8,7 @@ import 'package:online_exam_app/features/exams/presentation/widgets/exams_detail
 import 'package:online_exam_app/features/home/home_cubit/home_cubit.dart';
 import 'package:online_exam_app/features/home/tabs/explore_tab/domain/entities/subjects_entity.dart';
 import 'package:online_exam_app/features/home/views/home_page.dart';
-import 'package:online_exam_app/features/question/presentation/view_model/questions_view_model/questions_cubit.dart';
+import 'package:online_exam_app/features/question/presentation/cubit/questions_view_model/questions_cubit.dart';
 import 'package:online_exam_app/features/question/presentation/views/exam_score_view.dart';
 import 'package:online_exam_app/features/question/presentation/views/questions_view.dart';
 import 'package:online_exam_app/features/register/presentation/cubit/register_cubit.dart';

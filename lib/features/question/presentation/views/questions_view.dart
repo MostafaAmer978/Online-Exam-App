@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/core/reusable_component/custom_button.dart';
 import 'package:online_exam_app/core/utiles/build_appbar.dart';
-import 'package:online_exam_app/features/question/presentation/view_model/questions_view_model/questions_cubit.dart';
+import 'package:online_exam_app/features/question/presentation/cubit/questions_view_model/questions_cubit.dart';
 import 'package:online_exam_app/features/question/presentation/views/exam_score_view.dart';
 
 class QuestionsView extends StatefulWidget {
@@ -21,13 +21,11 @@ class _QuestionsViewState extends State<QuestionsView> {
   int _remainingTime = 25 * 60; // 30 minutes in seconds
   bool _isResultShown = false; // Flag to track if the result is shown
 
-  // @override
-  // void initState() {
-  //   viewModel = getIt.get<QuestionCubit>();
-  //   viewModel.getQuestionById();
-  //   super.initState();
-  //   startTimer();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
 
   void startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -55,6 +53,7 @@ class _QuestionsViewState extends State<QuestionsView> {
                 height: 100,
                 width: 100,
               ),
+
               const Text(
                 "Time Out!!",
                 style: TextStyle(
@@ -161,11 +160,8 @@ class _QuestionsViewState extends State<QuestionsView> {
                       SizedBox(width: 10.w),
                       Row(
                         children: [
-                          SizedBox(
-                            height: 30.h,
-                            width: 30.w,
-                            child: Image.asset('assets/images/alarm-64.png'),
-                          ),
+                          Icon(Icons.alarm, size: 30),
+                          SizedBox(width: 10.w),
                           Text(
                             formatTime(_remainingTime),
                             style: TextStyle(
