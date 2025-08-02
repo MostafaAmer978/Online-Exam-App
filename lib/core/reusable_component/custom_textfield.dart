@@ -20,7 +20,10 @@ class CustomTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
   final Function(String)? onFieldSubmitted;
+  final Widget? prefixIcon;
+
   const CustomTextFormField({
+    this.prefixIcon,
     this.onFieldSubmitted,
     this.textInputAction,
     super.key,
@@ -56,6 +59,7 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+        prefixIcon: prefixIcon,
         contentPadding: contentPadding,
         fillColor: fillColor,
         filled: true,
