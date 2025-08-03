@@ -5,6 +5,5 @@ import 'package:online_exam_app/core/utiles/constants.dart';
 @module
 abstract class DioModule {
   @singleton
-  Dio get dio => Dio(BaseOptions(baseUrl: Constants.baseUrl),
-  );
+  Dio get dio => Dio(BaseOptions(baseUrl: Constants.baseUrl));
 }

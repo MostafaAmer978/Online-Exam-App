@@ -45,6 +45,6 @@ class UserDTO {
   }
 
   UserModel toUserModel() {
-    return UserModel(userId: id ?? "", username: username ?? "" , token: "");
+    return UserModel(userId: id ?? "", username: username ?? "");
   }
 }

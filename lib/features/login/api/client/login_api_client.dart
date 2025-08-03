@@ -5,6 +5,7 @@ import 'package:online_exam_app/features/login/api/models/response/user_response
 import 'package:retrofit/retrofit.dart';
 
 part 'login_api_client.g.dart';
+
 @injectable
 @RestApi()
 abstract class LoginApiClient {

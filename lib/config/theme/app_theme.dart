@@ -10,7 +10,6 @@ abstract class AppTheme {
       colorScheme: colorScheme,
       appBarTheme: AppBarTheme(
         foregroundColor: colorScheme.secondary,
-        centerTitle: false,
       ),
 
       textTheme: TextTheme(
