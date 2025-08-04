@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam_app/core/di/di.dart';
-import 'package:online_exam_app/core/utiles/bloc_observer.dart';
-
+import 'package:online_exam_app/core/cache/shared_preferences.dart';
+import 'core/di/di.dart';
 import 'my_app.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
   configureDependencies();
-  Bloc.observer = CustomBlocObserver();
   runApp(MyApp());
 }
