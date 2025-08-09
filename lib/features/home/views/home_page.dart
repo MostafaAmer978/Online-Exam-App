@@ -7,7 +7,6 @@ import 'package:online_exam_app/features/home/home_cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  static const routeName = 'home';
   final HomeCubit cubit = getIt.get<HomeCubit>();
 
   @override
@@ -20,12 +19,8 @@ class HomePage extends StatelessWidget {
             automaticallyImplyLeading: false,
             title: _buildAppBarTitle(cubit.currentIndex),
           ),
-          body: IndexedStack(
-            index: cubit.currentIndex,
-            children: cubit.tabs,
-          ),
-          bottomNavigationBar:
-              _bottomNavigationBarWidget(),
+          body: IndexedStack(index: cubit.currentIndex, children: cubit.tabs),
+          bottomNavigationBar: _bottomNavigationBarWidget(),
         );
       },
     );
@@ -35,25 +30,16 @@ class HomePage extends StatelessWidget {
     return index == 0
         ? Text(
             AppStrings.surveyText,
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
           )
         : index == 1
         ? Text(
             AppStrings.resultText,
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
           )
         : Text(
             AppStrings.profileText,
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
           );
   }
 
@@ -112,9 +98,7 @@ class HomePage extends StatelessWidget {
       height: 32.h,
       width: 64.w,
       decoration: BoxDecoration(
-        color: isSelected
-            ? Colors.blue
-            : Colors.transparent,
+        color: isSelected ? Colors.blue : Colors.transparent,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(16.r),
       ),

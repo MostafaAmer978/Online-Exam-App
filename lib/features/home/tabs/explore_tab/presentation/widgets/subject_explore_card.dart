@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:online_exam_app/core/cache/shared_preferences.dart';
-import 'package:online_exam_app/features/exams/presentation/pages/exams_page.dart';
+import 'package:online_exam_app/config/routes/app_router.dart';
+import 'package:online_exam_app/core/cache/lbar_prefs.dart';
 import 'package:online_exam_app/features/home/tabs/explore_tab/domain/entities/subjects_entity.dart';
 
 class SubjectHomeCard extends StatelessWidget {
   final SubjectsEntity subject;
-  const SubjectHomeCard({
-    required this.subject,
-    super.key,
-  });
+  const SubjectHomeCard({required this.subject, super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        SharedPreferencesHelper.saveData(
-          key: 'subject',
-          value: subject.id,
-        );
-        Navigator.pushNamed(
-          context,
-          ExamsPage.routeName,
-          arguments: subject,
-        );
+        SharedPreferencesHelper.saveData(key: 'subject', value: subject.id);
+        Navigator.pushNamed(context, AppRoutesName.exams, arguments: subject);
       },
       child: SizedBox(
         height: 100.h,
@@ -37,13 +27,9 @@ class SubjectHomeCard extends StatelessWidget {
                   height: 60.h,
                   width: 60.w,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      12.r,
-                    ),
+                    borderRadius: BorderRadius.circular(12.r),
                     image: DecorationImage(
-                      image: NetworkImage(
-                        subject.icon ?? '',
-                      ),
+                      image: NetworkImage(subject.icon ?? ''),
                     ),
                   ),
                 ),
@@ -51,9 +37,7 @@ class SubjectHomeCard extends StatelessWidget {
                 SizedBox(width: 14.5.w),
                 Text(
                   subject.name ?? '',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleSmall,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
             ),

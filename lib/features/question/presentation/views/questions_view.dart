@@ -3,14 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam_app/config/routes/app_router.dart';
 import 'package:online_exam_app/core/reusable_component/custom_button.dart';
 import 'package:online_exam_app/core/utiles/build_appbar.dart';
 import 'package:online_exam_app/features/question/presentation/cubit/questions_view_model/questions_cubit.dart';
-import 'package:online_exam_app/features/question/presentation/views/exam_score_view.dart';
 
 class QuestionsView extends StatefulWidget {
   const QuestionsView({super.key});
-  static const String routeName = 'questionsView';
   @override
   State<QuestionsView> createState() => _QuestionsViewState();
 }
@@ -75,7 +74,7 @@ class _QuestionsViewState extends State<QuestionsView> {
                 final result = viewModel.calculateResult();
                 Navigator.pushNamed(
                   context,
-                  ExamScoreView.routeName,
+                  AppRoutesName.examsScore,
                   arguments: result,
                 );
               },
@@ -343,7 +342,7 @@ class _QuestionsViewState extends State<QuestionsView> {
                               });
                               Navigator.pushNamed(
                                 context,
-                                ExamScoreView.routeName,
+                                AppRoutesName.examsScore,
                                 arguments: result,
                               );
                             } else {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam_app/core/api_result/api_result.dart';
+import 'package:online_exam_app/core/api_rasult/api_result.dart';
 import 'package:online_exam_app/core/cache/shared_preferences.dart';
 import 'package:online_exam_app/core/utiles/app_strings.dart';
 import 'package:online_exam_app/features/login/domain/entities/user_model.dart';
@@ -22,16 +22,28 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> login({String? email, String? password}) async {
     if (formKey.currentState!.validate()) {
-      emit(state.copyWith(isLoadingState: true,showDialogState: false) );
+      emit(state.copyWith(isLoadingState: true, showDialogState: false));
       await Future.delayed(Duration(seconds: 1));
       ApiResult<UserModel> isLogin = await loginUseCase.call(
         email: emailController.text,
         password: passwordController.text,
       );
       if (isLogin is ApiSuccessResult) {
-        emit(state.copyWith(isLoggedState: true, showDialogState: false, isLoadingState: false));
+        emit(
+          state.copyWith(
+            isLoggedState: true,
+            showDialogState: false,
+            isLoadingState: false,
+          ),
+        );
       } else if (isLogin is ApiErrorResult) {
-        emit(state.copyWith(showDialogState: true, isLoggedState: false,isLoadingState: false));
+        emit(
+          state.copyWith(
+            showDialogState: true,
+            isLoggedState: false,
+            isLoadingState: false,
+          ),
+        );
       }
     }
   }
