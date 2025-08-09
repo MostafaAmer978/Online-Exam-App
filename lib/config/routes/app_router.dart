@@ -1,18 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam_app/config/routes/routes_name.dart';
-import 'package:online_exam_app/features/register/presentation/pages/register_page.dart';
+import 'package:online_exam_app/home.dart';
+import 'package:online_exam_app/features/login/presentation/pages/login_screen.dart';
 
-Route<dynamic> onGenerateRoute(RouteSettings settings) {
-  // final args = settings.arguments;
-  switch (settings.name) {
-    case RoutesName.signUpPage:
-      return MaterialPageRoute(builder: (context) => const RegisterPage());
+class AppRoutesName {
+  static const String loginPage = "login";
+  // static const String signUpPage = "signUp";
+  // static const String forgetPassword = "ForgetPassword";
+  static const String home = "Home";
+}
 
-    default:
-      return MaterialPageRoute(
-        builder: (context) => Scaffold(
-          body: Center(child: Text('No route found ${settings.name}')),
-        ),
-      );
+class AppRoutes {
+  static Route<dynamic>? onGenerate(RouteSettings settings) {
+    switch (settings.name) {
+      case AppRoutesName.loginPage:
+        return MaterialPageRoute(
+          builder: (context) {
+            return LoginScreen();
+          },
+        );
+      // case AppRoutesName.signUpPage:
+      //   return MaterialPageRoute(
+      //     builder: (context) {
+      //       return SignUp();
+      //     },
+      //   );
+      // case AppRoutesName.forgetPassword:
+      //   return MaterialPageRoute(
+      //     builder: (context) {
+      //       return ForgetPassword();
+      //     },);
+      case AppRoutesName.home:
+        return MaterialPageRoute(
+          builder: (context) {
+            return Home();
+          },
+        );
+
+      default:
+        return MaterialPageRoute(
+          builder: (context) {
+            return unDefineRoute();
+          },
+        );
+    }
+  }
+
+  static Widget unDefineRoute() {
+    return Scaffold(body: Center(child: Text("RouteName not Found")));
   }
 }
