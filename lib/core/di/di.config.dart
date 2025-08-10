@@ -62,7 +62,7 @@ import '../../features/question/domain/repos/get_questions_repo.dart' as _i575;
 import '../../features/question/domain/usecases/get_questions_use_case.dart'
     as _i756;
 import '../../features/question/presentation/cubit/questions_view_model/questions_cubit.dart'
-    as _i893;
+    as _i5;
 import '../../features/register/api/client/register_api.dart' as _i45;
 import '../../features/register/api/data_source_impl/register_remote_data_source_impl.dart'
     as _i318;
