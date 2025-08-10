@@ -59,7 +59,7 @@ void main() {
         when(
           mockUseCase.call(),
         ).thenAnswer((_) async => ApiErrorResult('Failed to load exams'));
-        return examsCubit;
+        return ExamsCubit(mockUseCase);
       },
       act: (cubit) => cubit.getExamsById(),
       expect: () => [
