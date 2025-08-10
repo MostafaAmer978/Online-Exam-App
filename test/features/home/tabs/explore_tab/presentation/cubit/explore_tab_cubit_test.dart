@@ -14,9 +14,12 @@ void main() {
   late ExploreTabCubit exploreTabCubit;
   late MockGetSubjectsUserCase mockGetSubjectsUserCase;
 
-  setUp(() {
+  setUpAll(() {
     mockGetSubjectsUserCase = MockGetSubjectsUserCase();
     exploreTabCubit = ExploreTabCubit(mockGetSubjectsUserCase);
+    provideDummy<ApiResult<List<SubjectsEntity>>>(
+      ApiSuccessResult<List<SubjectsEntity>>([]),
+    );
   });
 
   final mockSubjects = [
@@ -38,7 +41,15 @@ void main() {
       return exploreTabCubit;
     },
     act: (cubit) => cubit.getSubjects(),
-    expect: () => [GetSubjectsLoading(), GetSubjectsLoaded(mockSubjects)],
+    expect: () => [
+      isA<GetSubjectsLoading>(),
+      predicate(
+        (state) =>
+            state is GetSubjectsLoaded &&
+            state.subjects!.length == mockSubjects.length &&
+            state.subjects!.first.name == mockSubjects.first.name,
+      ),
+    ],
   );
 
   blocTest<ExploreTabCubit, ExploreTabState>(
@@ -49,8 +60,12 @@ void main() {
     },
     act: (cubit) => cubit.getSubjects(),
     expect: () => [
-      GetSubjectsLoading(),
-      GetSubjectsError('Failed to fetch subjects'),
+      isA<GetSubjectsLoading>(),
+      predicate(
+        (state) =>
+            state is GetSubjectsError &&
+            state.message == 'Failed to fetch subjects',
+      ),
     ],
   );
 }

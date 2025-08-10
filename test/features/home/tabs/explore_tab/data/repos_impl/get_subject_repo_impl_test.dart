@@ -13,7 +13,10 @@ void main() {
   late GetSubjectRepoImpl repo;
   late MockGetSubjectRemoteDataSource mockRemote;
 
-  setUp(() {
+  setUpAll(() {
+    provideDummy<ApiResult<List<SubjectsEntity>>>(
+      ApiSuccessResult<List<SubjectsEntity>>([]),
+    );
     mockRemote = MockGetSubjectRemoteDataSource();
     repo = GetSubjectRepoImpl(mockRemote);
   });

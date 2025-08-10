@@ -13,7 +13,10 @@ void main() {
   late MockGetQuestionsDataSource mockDataSource;
   late GetQuestionsRepoImpl repo;
 
-  setUp(() {
+  setUpAll(() {
+    provideDummy<ApiResult<List<QuestionsEntity>>>(
+      ApiSuccessResult<List<QuestionsEntity>>([]),
+    );
     mockDataSource = MockGetQuestionsDataSource();
     repo = GetQuestionsRepoImpl(mockDataSource);
   });

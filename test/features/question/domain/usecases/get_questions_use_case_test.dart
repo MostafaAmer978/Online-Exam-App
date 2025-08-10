@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:online_exam_app/core/api_rasult/api_result.dart';
+import 'package:online_exam_app/core/cache/lbar_prefs.dart';
 import 'package:online_exam_app/features/question/domain/entities/questions_entity.dart';
 import 'package:online_exam_app/features/question/domain/repos/get_questions_repo.dart';
 import 'package:online_exam_app/features/question/domain/usecases/get_questions_use_case.dart';
@@ -14,25 +15,32 @@ void main() {
   late MockGetQuestionsRepo mockRepo;
   late GetQuestionsUseCase useCase;
 
-  setUp(() {
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({'examId': 'exam123'});
+
+    SharedPreferencesHelper.sharedPreferences =
+        await SharedPreferences.getInstance();
+
     mockRepo = MockGetQuestionsRepo();
     useCase = GetQuestionsUseCase(mockRepo);
+    provideDummy<ApiResult<List<QuestionsEntity>>>(
+      ApiSuccessResult<List<QuestionsEntity>>([]),
+    );
   });
 
   group('GetQuestionsUseCase', () {
     test('returns ApiSuccessResult when repo succeeds', () async {
-      const examId = 'exam123';
-      SharedPreferences.setMockInitialValues({'examId': examId});
-
       final mockEntity = QuestionsEntity(
         id: 'q1',
         question: 'Explain BLoC pattern',
-        type: examId,
+        type: 'exam123',
       );
 
       final mockResult = ApiSuccessResult<List<QuestionsEntity>>([mockEntity]);
 
-      when(mockRepo.getQuestions(examId)).thenAnswer((_) async => mockResult);
+      when(
+        mockRepo.getQuestions('exam123'),
+      ).thenAnswer((_) async => mockResult);
 
       final result = await useCase();
 
@@ -45,7 +53,6 @@ void main() {
 
     test('returns ApiErrorResult when repo fails', () async {
       const examId = 'exam123';
-      SharedPreferences.setMockInitialValues({'examId': examId});
 
       final mockError = ApiErrorResult<List<QuestionsEntity>>(
         'No questions found',

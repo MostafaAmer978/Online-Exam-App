@@ -13,7 +13,10 @@ void main() {
   late GetSubjectsUserCase useCase;
   late MockGetSubjectRepo mockRepo;
 
-  setUp(() {
+  setUpAll(() {
+    provideDummy<ApiResult<List<SubjectsEntity>>>(
+      ApiSuccessResult<List<SubjectsEntity>>([]),
+    );
     mockRepo = MockGetSubjectRepo();
     useCase = GetSubjectsUserCase(mockRepo);
   });

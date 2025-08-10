@@ -1,10 +1,10 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:online_exam_app/core/api_rasult/api_result.dart';
 import 'package:online_exam_app/features/exams/data/datasources/get_exams_remote_data_source.dart';
 import 'package:online_exam_app/features/exams/data/repos_impl/get_exams_repo_impl.dart';
 import 'package:online_exam_app/features/exams/domain/entities/exams_exntity.dart';
+import 'package:test/test.dart';
 
 import 'get_exams_repo_impl_test.mocks.dart';
 
@@ -12,22 +12,25 @@ import 'get_exams_repo_impl_test.mocks.dart';
 void main() {
   late MockGetExamsRemoteDataSource mockRemoteDataSource;
   late GetExamsRepoImpl repo;
+  late List<ExamsEntity> mockEntityList;
 
-  setUp(() {
+  setUpAll(() {
     mockRemoteDataSource = MockGetExamsRemoteDataSource();
     repo = GetExamsRepoImpl(mockRemoteDataSource);
+    provideDummy<ApiResult<List<ExamsEntity>>>(
+      ApiSuccessResult<List<ExamsEntity>>([]),
+    );
+    mockEntityList = [
+      ExamsEntity(id: '1', title: 'Physics Exam', subjectId: 'phy101'),
+      ExamsEntity(id: '2', title: 'Physics Exam 2', subjectId: 'phy102'),
+    ];
   });
 
   group('GetExamsRepoImpl', () {
     test('returns ApiSuccessResult when remote data source succeeds', () async {
       // arrange
-      final mockEntity = ExamsEntity(
-        id: '1',
-        title: 'Physics Exam',
-        subjectId: 'phy101',
-      );
 
-      final mockResult = ApiSuccessResult<List<ExamsEntity>>([mockEntity]);
+      final mockResult = ApiSuccessResult<List<ExamsEntity>>(mockEntityList);
 
       when(
         mockRemoteDataSource.getExamsBySubject(any),
@@ -39,7 +42,7 @@ void main() {
       // assert
       expect(result, isA<ApiSuccessResult<List<ExamsEntity>>>());
       final exams = (result as ApiSuccessResult<List<ExamsEntity>>).data;
-      expect(exams.length, 1);
+      expect(exams.length, 2);
       expect(exams.first.title, 'Physics Exam');
 
       verify(mockRemoteDataSource.getExamsBySubject('phy101')).called(1);

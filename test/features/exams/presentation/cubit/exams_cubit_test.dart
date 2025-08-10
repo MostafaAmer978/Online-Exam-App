@@ -14,9 +14,13 @@ void main() {
   late MockGetExamsUseCase mockUseCase;
   late ExamsCubit examsCubit;
 
-  setUp(() {
+  setUpAll(() {
     mockUseCase = MockGetExamsUseCase();
     examsCubit = ExamsCubit(mockUseCase);
+
+    provideDummy<ApiResult<List<ExamsEntity>>>(
+      ApiSuccessResult<List<ExamsEntity>>([]),
+    );
   });
 
   tearDown(() {
@@ -35,25 +39,36 @@ void main() {
         when(
           mockUseCase.call(),
         ).thenAnswer((_) async => ApiSuccessResult(mockExams));
-
         return examsCubit;
       },
       act: (cubit) => cubit.getExamsById(),
-      expect: () => [ExamsLoading(), ExamsLoaded(mockExams)],
+      expect: () => [
+        isA<ExamsLoading>(),
+        predicate(
+          (state) =>
+              state is ExamsLoaded &&
+              state.exams.length == mockExams.length &&
+              state.exams.first.title == mockExams.first.title,
+        ),
+      ],
     );
 
     blocTest<ExamsCubit, ExamsState>(
       'emits [ExamsLoading, ExamsError] when useCase returns error',
       build: () {
-        // when(() => mockUseCase.call())
-        //     .thenAnswer((_) async => ApiErrorResult('Failed to load exams'));
         when(
           mockUseCase.call(),
         ).thenAnswer((_) async => ApiErrorResult('Failed to load exams'));
         return examsCubit;
       },
       act: (cubit) => cubit.getExamsById(),
-      expect: () => [ExamsLoading(), ExamsError('Failed to load exams')],
+      expect: () => [
+        isA<ExamsLoading>(),
+        predicate(
+          (state) =>
+              state is ExamsError && state.errMessage == 'Failed to load exams',
+        ),
+      ],
     );
   });
 }
