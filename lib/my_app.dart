@@ -29,4 +29,9 @@ class _MyAppState extends State<MyApp> {
       }
     );
   }
+
+  // String _getInitialRoute() {
+  //   final token = getIt<SecureStorageService>().readToken();
+  //   return token != null && token.isNotEmpty ? HomePage.routeName : RegisterPage.routeName;
+  // }
 }

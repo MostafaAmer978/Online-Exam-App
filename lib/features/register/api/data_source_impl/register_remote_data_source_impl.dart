@@ -11,6 +11,8 @@ import 'package:dio/dio.dart';
 @Injectable(as: RegisterRemoteDataSource)
 class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
   RegisterApi registerApi;
+  //  SecureStorageService secureStorageService;
+  //this.secureStorageService
   RegisterRemoteDataSourceImpl(this.registerApi);
   @override
   Future<ApiResult<RegisterEntity>> register(
@@ -34,6 +36,11 @@ class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
           phone: phone,
         ),
       );
+
+      // if (registerResponse.token != null) {
+      //   await secureStorageService.saveToken(registerResponse.token!);
+      // }
+
       return ApiSuccessResult<RegisterEntity>(
         registerResponse.user!.toRegisterEntity(),
       );

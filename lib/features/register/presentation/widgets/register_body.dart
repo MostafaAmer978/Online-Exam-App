@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam_app/config/routes/app_router.dart';
 import 'package:online_exam_app/core/values/app_strings.dart';
 import 'package:online_exam_app/features/register/presentation/cubit/register_cubit.dart';
 import 'package:online_exam_app/features/register/presentation/cubit/register_state.dart';
@@ -18,6 +19,7 @@ class RegisterBody extends StatelessWidget {
           prev.registerErrorState != curr.registerErrorState,
       listener: (context, state) {
         if (state.registerEntity != null) {
+          Navigator.pushNamed(context, AppRoutesName.home);
           return showTopSnackBar(
             Overlay.of(context),
             CustomSnackBar.success(
@@ -25,6 +27,7 @@ class RegisterBody extends StatelessWidget {
               message: AppStrings.userCreatedSuccessfully,
             ),
           );
+
           // TODO: Navigate to login
         } else if (state.registerErrorState != null) {
           return showTopSnackBar(
