@@ -25,15 +25,15 @@ class CacheHelper {
 
   static String? getToken(String key) {
     return sharedPreferences.getString(key);
-
   }
 
   static bool? getRememberMe(String key) {
     return sharedPreferences.getBool(key);
-
   }
 
   static Future<bool> deleteToken(String key) async {
     return await sharedPreferences.remove(key);
   }
+
+  static void setMockInitialValues(Map<String, String> map) {}
 }

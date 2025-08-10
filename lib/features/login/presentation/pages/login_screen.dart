@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam_app/config/routes/app_router.dart';
 import 'package:online_exam_app/core/di/di.dart';
 import 'package:online_exam_app/core/utiles/app_strings.dart';
-import 'package:online_exam_app/home.dart';
+import 'package:online_exam_app/features/home/views/home_page.dart';
 import 'package:online_exam_app/features/login/presentation/cubit/login_cubit.dart';
 import 'package:online_exam_app/features/login/presentation/cubit/login_state.dart';
 import 'package:online_exam_app/features/login/presentation/widgets/login_button_create_account.dart';
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         builder: (BuildContext context, state) {
           if (state.rememberMeState == true) {
-            return Home();
+            return HomePage();
           } else {
             return SafeArea(
               child: Scaffold(

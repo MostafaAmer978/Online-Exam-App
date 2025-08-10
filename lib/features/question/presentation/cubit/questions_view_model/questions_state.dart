@@ -1,0 +1,24 @@
+part of 'questions_cubit.dart';
+
+@immutable
+sealed class QuestionsState {}
+
+final class QuestionsInitial extends QuestionsState {}
+
+final class QuestionsLoading extends QuestionsState {}
+
+final class QuestionsSuccess extends QuestionsState {
+  final List<QuestionsEntity> questions;
+  QuestionsSuccess(this.questions);
+}
+
+final class QuestionsFail extends QuestionsState {
+  final String errorMessage;
+  QuestionsFail(this.errorMessage);
+}
+
+final class QuestionResult extends QuestionsState {
+  final List<QuestionsEntity> questions;
+  final Map<String, dynamic> results;
+  QuestionResult(this.questions, this.results);
+}
