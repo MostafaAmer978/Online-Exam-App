@@ -115,6 +115,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i275.GetQuestionsDataSource>(
       () => _i830.GetQuestionsDataSourceImpl(gh<_i807.QuestionApi>()),
     );
+    gh.factory<_i542.RegisterRemoteDataSource>(
+      () => _i318.RegisterRemoteDataSourceImpl(
+        gh<_i45.RegisterApi>(),
+        gh<_i1052.SecureStorageService>(),
+      ),
+    );
     gh.factory<_i575.GetQuestionsRepo>(
       () => _i855.GetQuestionsRepoImpl(gh<_i275.GetQuestionsDataSource>()),
     );
@@ -126,9 +132,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i756.GetQuestionsUseCase>(
       () => _i756.GetQuestionsUseCase(gh<_i575.GetQuestionsRepo>()),
-    );
-    gh.factory<_i542.RegisterRemoteDataSource>(
-      () => _i318.RegisterRemoteDataSourceImpl(gh<_i45.RegisterApi>()),
     );
     gh.factory<_i1033.LoginRemoteDataSource>(
       () => _i884.LoginRemoteDataSourceImpl(gh<_i313.LoginApiClient>()),

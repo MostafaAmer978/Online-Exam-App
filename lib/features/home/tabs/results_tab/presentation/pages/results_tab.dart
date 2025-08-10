@@ -16,18 +16,19 @@ class ResultsTab extends StatelessWidget {
           final percentage = resultData['percentage'];
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Results'), centerTitle: true),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'You got $correctAnswers out of $totalQuestions questions correct!',
+            body: state.resultData == null
+                ? Center(child: Text('No results to display yet.'))
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'You got $correctAnswers out of $totalQuestions questions correct!',
+                        ),
+                        Text('Your score: $percentage%'),
+                      ],
+                    ),
                   ),
-                  Text('Your score: $percentage%'),
-                ],
-              ),
-            ),
           );
         }
         return const Center(child: Text('No results to display yet.'));

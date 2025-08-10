@@ -1,5 +1,6 @@
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:online_exam_app/core/cache/storage_source.dart';
 import 'package:online_exam_app/features/register/api/data_source_impl/register_remote_data_source_impl.dart';
 import 'package:online_exam_app/features/register/api/model/user_dto.dart';
 import 'package:test/test.dart';
@@ -11,14 +12,15 @@ import 'package:online_exam_app/features/register/domain/entities/user_entity.da
 
 import 'register_remote_data_source_impl_test.mocks.dart';
 
-@GenerateMocks([RegisterApi])
+@GenerateMocks([RegisterApi, SecureStorageService])
 void main() {
   late MockRegisterApi mockRegisterApi;
   late RegisterRemoteDataSourceImpl dataSource;
-
+  late MockSecureStorageService mockStorage;
   setUp(() {
     mockRegisterApi = MockRegisterApi();
-    dataSource = RegisterRemoteDataSourceImpl(mockRegisterApi);
+    mockStorage = MockSecureStorageService();
+    dataSource = RegisterRemoteDataSourceImpl(mockRegisterApi, mockStorage);
   });
 
   group('RegisterRemoteDataSourceImpl', () {
@@ -39,9 +41,9 @@ void main() {
         mockRegisterApi.register(body: anyNamed('body')),
       ).thenAnswer((_) async => mockResponse);
 
-      // when(
-      //   mockStorage.saveToken('mock_token'),
-      // ).thenAnswer((_) async => Future.value());
+      when(
+        mockStorage.saveToken('mock_token'),
+      ).thenAnswer((_) async => Future.value());
 
       // act
       final result = await dataSource.register(

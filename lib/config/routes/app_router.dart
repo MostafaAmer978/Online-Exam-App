@@ -53,9 +53,9 @@ class AppRoutes {
           ),
         );
       case AppRoutesName.home:
-        final Map<String, dynamic> resultData =
-            settings.arguments as Map<String, dynamic>;
-
+        final resultData = settings.arguments is Map<String, dynamic>
+            ? settings.arguments as Map<String, dynamic>
+            : <String, dynamic>{};
         return MaterialPageRoute(
           builder: (context) => HomePage(resultData: resultData),
         );
