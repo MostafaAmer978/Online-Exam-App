@@ -17,4 +17,5 @@ class AppEndpoints {
   static const String changePassword = 'auth/changePassword';
   static const String subjectUrl = "subjects";
   static const String examsUrl = "exams?";
+  static const String profile = "auth/profileData";
 }

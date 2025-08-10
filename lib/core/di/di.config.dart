@@ -51,6 +51,7 @@ import '../../features/login/data/repos_impl/login_repo_impl.dart' as _i998;
 import '../../features/login/domain/repos/login_repo.dart' as _i184;
 import '../../features/login/domain/usecases/login_usecase.dart' as _i420;
 import '../../features/login/presentation/cubit/login_cubit.dart' as _i147;
+import '../../features/profile/api/client/get_profile_api_client.dart' as _i223;
 import '../../features/question/api/client/question_api.dart' as _i807;
 import '../../features/question/api/data_source_impl/get_questions_data_source_impl.dart'
     as _i830;
@@ -107,6 +108,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i807.QuestionApi>(() => _i807.QuestionApi(gh<_i361.Dio>()));
     gh.factory<_i45.RegisterApi>(() => _i45.RegisterApi(gh<_i361.Dio>()));
+    gh.factory<_i223.GetProfileApiClient>(
+      () => _i223.GetProfileApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i301.LoginLocalDataSource>(
       () => _i835.LoginLocalDataSourceImpl(
         loginApiClient: gh<_i313.LoginApiClient>(),
