@@ -14,64 +14,94 @@ import 'package:online_exam_app/features/question/presentation/views/questions_v
 import 'package:online_exam_app/features/register/presentation/cubit/register_cubit.dart';
 import 'package:online_exam_app/features/register/presentation/pages/register_page.dart';
 import 'package:online_exam_app/features/splash/splash_page.dart';
+import 'package:online_exam_app/features/login/presentation/pages/login_screen.dart';
 
-Route<dynamic> onGenerateRoute(RouteSettings settings) {
-  // final args = settings.arguments;
-  switch (settings.name) {
-    case RegisterPage.routeName:
-      return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => getIt<RegisterCubit>(),
-          child: const RegisterPage(),
-        ),
-      );
-    case HomePage.routeName:
-      return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => getIt<HomeCubit>(),
-          child: HomePage(),
-        ),
-      );
-    case SplashPage.routeName:
-      return MaterialPageRoute(builder: (context) => const SplashPage());
-    case ExamScoreView.routeName:
-      final Map<String, dynamic> results =
-          settings.arguments as Map<String, dynamic>;
-      return MaterialPageRoute(
-        builder: (context) => ExamScoreView(results: results),
-      );
+class AppRoutesName {
+  static const String loginPage = "login";
+  // static const String signUpPage = "signUp";
+  // static const String forgetPassword = "ForgetPassword";
+  static const String splash = "Splash";
+  static const String register = "Register";
+  static const String exams = "exams";
+  static const String questions = "questions";
+  static const String subjects = "subjects";
+  static const String examsDetails = "examsDetails";
+  static const String examsScore = "examsScore";
+  static const String home = "Home";
+}
 
-    case ExamsDetails.routeName:
-      final ExamsEntity exam = settings.arguments as ExamsEntity;
-      return MaterialPageRoute(
-        builder: (context) => ExamsDetails(entity: exam),
-      );
-    case ExamsPage.routeName:
-      final SubjectsEntity subject = settings.arguments as SubjectsEntity;
-      return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => getIt<ExamsCubit>()..getExamsById(),
-          child: ExamsPage(subject: subject),
-        ),
-      );
-    case QuestionsView.routeName:
-      // final QuestionsEntity subject =
-      //       settings.arguments as QuestionsEntity;
-      return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => getIt<QuestionsCubit>()..getQuestionById(),
-          child: QuestionsView(),
-        ),
-      );
-    // BlocProvider(
-    //           create: (context) => getIt<HomeCubit>(),
-    //           child: HomePage(),
-    //         ),
-    default:
-      return MaterialPageRoute(
-        builder: (context) => Scaffold(
-          body: Center(child: Text('No route found ${settings.name}')),
-        ),
-      );
+class AppRoutes {
+  static Route<dynamic>? onGenerate(RouteSettings settings) {
+    switch (settings.name) {
+      case AppRoutesName.loginPage:
+        return MaterialPageRoute(
+          builder: (context) {
+            return LoginScreen();
+          },
+        );
+
+      // case AppRoutesName.home:
+      //   return MaterialPageRoute(
+      //     builder: (context) {
+      //       return Home();
+      //     },
+      //   );
+      case AppRoutesName.register:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<RegisterCubit>(),
+            child: const RegisterPage(),
+          ),
+        );
+      case AppRoutesName.home:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<HomeCubit>(),
+            child: HomePage(),
+          ),
+        );
+      case AppRoutesName.splash:
+        return MaterialPageRoute(builder: (context) => const SplashPage());
+      case AppRoutesName.examsScore:
+        final Map<String, dynamic> results =
+            settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (context) => ExamScoreView(results: results),
+        );
+
+      case AppRoutesName.examsDetails:
+        final ExamsEntity exam = settings.arguments as ExamsEntity;
+        return MaterialPageRoute(
+          builder: (context) => ExamsDetails(entity: exam),
+        );
+      case AppRoutesName.exams:
+        final SubjectsEntity subject = settings.arguments as SubjectsEntity;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<ExamsCubit>()..getExamsById(),
+            child: ExamsPage(subject: subject),
+          ),
+        );
+      case AppRoutesName.questions:
+        // final QuestionsEntity subject =
+        //       settings.arguments as QuestionsEntity;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<QuestionsCubit>()..getQuestionById(),
+            child: QuestionsView(),
+          ),
+        );
+
+      default:
+        return MaterialPageRoute(
+          builder: (context) {
+            return unDefineRoute();
+          },
+        );
+    }
+  }
+
+  static Widget unDefineRoute() {
+    return Scaffold(body: Center(child: Text("RouteName not Found")));
   }
 }

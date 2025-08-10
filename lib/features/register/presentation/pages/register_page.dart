@@ -4,7 +4,6 @@ import 'package:online_exam_app/features/register/presentation/widgets/register_
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
-  static const String routeName = 'register';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

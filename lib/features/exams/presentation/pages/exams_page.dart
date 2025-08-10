@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam_app/config/routes/app_router.dart';
 import 'package:online_exam_app/features/exams/domain/entities/exams_exntity.dart';
 import 'package:online_exam_app/features/exams/presentation/cubit/exams_cubit.dart';
-import 'package:online_exam_app/features/exams/presentation/widgets/exams_details.dart';
 import 'package:online_exam_app/features/home/tabs/explore_tab/domain/entities/subjects_entity.dart';
 
 class ExamsPage extends StatelessWidget {
   final SubjectsEntity? subject;
 
   const ExamsPage({super.key, this.subject});
-  static const String routeName = 'exams-page';
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +19,7 @@ class ExamsPage extends StatelessWidget {
       body: BlocBuilder<ExamsCubit, ExamsState>(
         builder: (context, state) {
           if (state is ExamsLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator());
           } else if (state is ExamsError) {
             return Center(child: Text(state.errMessage));
           } else if (state is ExamsLoaded) {
@@ -31,18 +28,13 @@ class ExamsPage extends StatelessWidget {
             }
             return ListView.separated(
               itemBuilder: (context, index) {
-                return ExamsCardWidget(
-                  state.exams[index],
-                );
+                return ExamsCardWidget(state.exams[index]);
               },
-              separatorBuilder: (context, index) =>
-                  SizedBox(height: 16.h),
+              separatorBuilder: (context, index) => SizedBox(height: 16.h),
               itemCount: state.exams.length,
             );
           } else {
-            return const Center(
-              child: Text('something rong'),
-            );
+            return const Center(child: Text('something rong'));
           }
         },
       ),
@@ -60,7 +52,7 @@ class ExamsCardWidget extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(
           context,
-          ExamsDetails.routeName,
+          AppRoutesName.examsDetails,
           arguments: exam,
         );
       },
@@ -82,40 +74,27 @@ class ExamsCardWidget extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(
-                    width:
-                        MediaQuery.of(
-                          context,
-                        ).size.width *
-                        0.7,
+                    width: MediaQuery.of(context).size.width * 0.7,
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                       children: [
                         Column(
                           children: [
                             Text(
                               exam.title ?? "",
-                              style: Theme.of(
-                                context,
-                              ).textTheme.titleMedium,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                             Text(
                               '${exam.numberOfQuestions ?? ""} Question',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
                         ),
                         Text(
                           '${exam.duration ?? ""} Minutes',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                color: Color(0xff143473),
-                              ),
+                          style: Theme.of(context).textTheme.bodyLarge!
+                              .copyWith(color: Color(0xff143473)),
                         ),
                       ],
                     ),

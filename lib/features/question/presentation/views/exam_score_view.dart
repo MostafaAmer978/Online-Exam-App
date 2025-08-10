@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:online_exam_app/config/routes/app_router.dart';
 import 'package:online_exam_app/core/reusable_component/custom_button.dart';
 import 'package:online_exam_app/core/utiles/build_appbar.dart';
-import 'package:online_exam_app/features/home/views/home_page.dart';
-import 'package:online_exam_app/features/question/presentation/views/questions_view.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ExamScoreView extends StatelessWidget {
   final Map<String, dynamic> results;
   const ExamScoreView({super.key, required this.results});
-  static const String routeName = 'exam_score';
   @override
   Widget build(BuildContext context) {
     // final Map<String, dynamic> results =
@@ -30,7 +28,7 @@ class ExamScoreView extends StatelessWidget {
             buildAppBar(
               title: 'Exam Score',
               onTap: true,
-              routeName: HomePage.routeName,
+              routeName: AppRoutesName.home,
               context: context,
             ),
             const SizedBox(height: 40),
@@ -141,7 +139,7 @@ class ExamScoreView extends StatelessWidget {
               borderRadius: 33,
               backgroundColorButton: Colors.white,
               onPressed: () {
-                Navigator.pushNamed(context, QuestionsView.routeName);
+                Navigator.pushNamed(context, AppRoutesName.questions);
               },
               // side: const BorderSide(
               //   color: ColorManager.blue,

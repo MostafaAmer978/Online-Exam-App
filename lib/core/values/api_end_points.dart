@@ -4,8 +4,8 @@ class AppEndpoints {
   //Resgister
   static const String register = 'auth/signup';
 
-  //Login
-  // static const String login = 'auth/signin';
+  //  Login
+  static const String login = 'auth/signin';
 
   static const String forgetPassword = "auth/forgotPassword";
   static const String verifyResetCode = "auth/verifyResetCode";
