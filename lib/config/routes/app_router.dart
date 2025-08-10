@@ -5,12 +5,11 @@ import 'package:online_exam_app/features/exams/domain/entities/exams_exntity.dar
 import 'package:online_exam_app/features/exams/presentation/cubit/exams_cubit.dart';
 import 'package:online_exam_app/features/exams/presentation/pages/exams_page.dart';
 import 'package:online_exam_app/features/exams/presentation/widgets/exams_details.dart';
-import 'package:online_exam_app/features/home/home_cubit/home_cubit.dart';
 import 'package:online_exam_app/features/home/tabs/explore_tab/domain/entities/subjects_entity.dart';
 import 'package:online_exam_app/features/home/views/home_page.dart';
 import 'package:online_exam_app/features/question/presentation/cubit/questions_view_model/questions_cubit.dart';
-import 'package:online_exam_app/features/question/presentation/views/exam_score_view.dart';
-import 'package:online_exam_app/features/question/presentation/views/questions_view.dart';
+import 'package:online_exam_app/features/question/presentation/views/view/exam_score_view.dart';
+import 'package:online_exam_app/features/question/presentation/views/view/questions_view.dart';
 import 'package:online_exam_app/features/register/presentation/cubit/register_cubit.dart';
 import 'package:online_exam_app/features/register/presentation/pages/register_page.dart';
 import 'package:online_exam_app/features/splash/splash_page.dart';
@@ -54,11 +53,11 @@ class AppRoutes {
           ),
         );
       case AppRoutesName.home:
+        final resultData = settings.arguments is Map<String, dynamic>
+            ? settings.arguments as Map<String, dynamic>
+            : <String, dynamic>{};
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => getIt<HomeCubit>(),
-            child: HomePage(),
-          ),
+          builder: (context) => HomePage(resultData: resultData),
         );
       case AppRoutesName.splash:
         return MaterialPageRoute(builder: (context) => const SplashPage());

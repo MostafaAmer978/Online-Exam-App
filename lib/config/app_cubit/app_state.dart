@@ -6,6 +6,5 @@ class AppState {
 
   AppState({required this.isAuthenticated, this.token});
 
-  factory AppState.initial() =>
-      AppState(isAuthenticated: false);
+  factory AppState.initial() => AppState(isAuthenticated: false);
 }

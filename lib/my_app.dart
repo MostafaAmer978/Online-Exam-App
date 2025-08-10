@@ -21,12 +21,12 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           theme: AppTheme.lightTheme,
           // debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutesName.loginPage,
-          onGenerateRoute: (settings){
+          initialRoute: AppRoutesName.splash,
+          onGenerateRoute: (settings) {
             return AppRoutes.onGenerate(settings);
           },
         );
-      }
+      },
     );
   }
 

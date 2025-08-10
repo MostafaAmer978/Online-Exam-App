@@ -6,23 +6,32 @@ import 'package:online_exam_app/core/values/app_strings.dart';
 import 'package:online_exam_app/features/home/home_cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  final Map<String, dynamic>? resultData;
+  HomePage({super.key, this.resultData});
   final HomeCubit cubit = getIt.get<HomeCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      bloc: cubit,
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: _buildAppBarTitle(cubit.currentIndex),
-          ),
-          body: IndexedStack(index: cubit.currentIndex, children: cubit.tabs),
-          bottomNavigationBar: _bottomNavigationBarWidget(),
-        );
-      },
+    return BlocProvider(
+      create: (context) => getIt<HomeCubit>(),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        bloc: cubit,
+        builder: (context, state) {
+          if (resultData != null) {
+            context.read<HomeCubit>().updateResult(resultData!);
+            context.read<HomeCubit>().onTabClicked(1);
+          }
+
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: _buildAppBarTitle(cubit.currentIndex),
+            ),
+            body: IndexedStack(index: cubit.currentIndex, children: cubit.tabs),
+            bottomNavigationBar: _bottomNavigationBarWidget(),
+          );
+        },
+      ),
     );
   }
 

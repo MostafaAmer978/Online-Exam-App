@@ -3,17 +3,18 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
-import 'package:online_exam_app/core/api_rasult/api_result.dart' as _i5;
+import 'package:mockito/src/dummies.dart' as _i8;
+import 'package:online_exam_app/core/api_rasult/api_result.dart' as _i6;
+import 'package:online_exam_app/core/cache/storage_source.dart' as _i3;
 import 'package:online_exam_app/features/register/api/client/register_api.dart'
     as _i2;
 import 'package:online_exam_app/features/register/api/data_source_impl/register_remote_data_source_impl.dart'
-    as _i3;
+    as _i4;
 import 'package:online_exam_app/features/register/domain/entities/user_entity.dart'
-    as _i6;
+    as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -34,11 +35,17 @@ class _FakeRegisterApi_0 extends _i1.SmartFake implements _i2.RegisterApi {
     : super(parent, parentInvocation);
 }
 
+class _FakeSecureStorageService_1 extends _i1.SmartFake
+    implements _i3.SecureStorageService {
+  _FakeSecureStorageService_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [RegisterRemoteDataSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRegisterRemoteDataSourceImpl extends _i1.Mock
-    implements _i3.RegisterRemoteDataSourceImpl {
+    implements _i4.RegisterRemoteDataSourceImpl {
   MockRegisterRemoteDataSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -55,13 +62,31 @@ class MockRegisterRemoteDataSourceImpl extends _i1.Mock
           as _i2.RegisterApi);
 
   @override
+  _i3.SecureStorageService get secureStorageService =>
+      (super.noSuchMethod(
+            Invocation.getter(#secureStorageService),
+            returnValue: _FakeSecureStorageService_1(
+              this,
+              Invocation.getter(#secureStorageService),
+            ),
+          )
+          as _i3.SecureStorageService);
+
+  @override
   set registerApi(_i2.RegisterApi? _registerApi) => super.noSuchMethod(
     Invocation.setter(#registerApi, _registerApi),
     returnValueForMissingStub: null,
   );
 
   @override
-  _i4.Future<_i5.ApiResult<_i6.RegisterEntity>> register(
+  set secureStorageService(_i3.SecureStorageService? _secureStorageService) =>
+      super.noSuchMethod(
+        Invocation.setter(#secureStorageService, _secureStorageService),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.Future<_i6.ApiResult<_i7.RegisterEntity>> register(
     String? username,
     String? firstName,
     String? lastName,
@@ -80,8 +105,8 @@ class MockRegisterRemoteDataSourceImpl extends _i1.Mock
               rePassword,
               phone,
             ]),
-            returnValue: _i4.Future<_i5.ApiResult<_i6.RegisterEntity>>.value(
-              _i7.dummyValue<_i5.ApiResult<_i6.RegisterEntity>>(
+            returnValue: _i5.Future<_i6.ApiResult<_i7.RegisterEntity>>.value(
+              _i8.dummyValue<_i6.ApiResult<_i7.RegisterEntity>>(
                 this,
                 Invocation.method(#register, [
                   username,
@@ -95,5 +120,5 @@ class MockRegisterRemoteDataSourceImpl extends _i1.Mock
               ),
             ),
           )
-          as _i4.Future<_i5.ApiResult<_i6.RegisterEntity>>);
+          as _i5.Future<_i6.ApiResult<_i7.RegisterEntity>>);
 }

@@ -12,22 +12,33 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(ExploreTabState());
 
   int currentIndex = 0;
+  Map<String, dynamic>? examsResult;
 
   List<Widget> tabs = [
     const ExploreTab(),
     const ResultsTab(),
     const ProfileTab(),
   ];
+
   void onTabClicked(int tabIndex) {
     if (currentIndex != tabIndex) {
       currentIndex = tabIndex;
       if (tabIndex == 0) {
         emit(ExploreTabState());
       } else if (tabIndex == 1) {
-        emit(ResultTabState());
+        emit(ResultTabState(resultData: examsResult));
       } else if (tabIndex == 2) {
         emit(ProfileTabState());
       }
+    }
+  }
+
+  // أضف هذه الدالة لتحديث النتيجة
+  void updateResult(Map<String, dynamic> result) {
+    examsResult = result;
+    // يمكنك هنا إصدار حالة لتحديث UI إذا كنت في ResultsTab
+    if (currentIndex == 1) {
+      emit(ResultTabState(resultData: examsResult));
     }
   }
 }

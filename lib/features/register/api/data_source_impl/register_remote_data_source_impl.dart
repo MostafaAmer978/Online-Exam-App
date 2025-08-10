@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import 'package:online_exam_app/core/api_rasult/api_result.dart';
+import 'package:online_exam_app/core/cache/storage_source.dart';
 import 'package:online_exam_app/features/register/api/client/register_api.dart';
 import 'package:online_exam_app/features/register/api/model/register_response.dart';
 import 'package:online_exam_app/features/register/data/datasources/register_remate_data_source.dart';
@@ -11,9 +12,9 @@ import 'package:dio/dio.dart';
 @Injectable(as: RegisterRemoteDataSource)
 class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
   RegisterApi registerApi;
-  //  SecureStorageService secureStorageService;
+  SecureStorageService secureStorageService;
   //this.secureStorageService
-  RegisterRemoteDataSourceImpl(this.registerApi);
+  RegisterRemoteDataSourceImpl(this.registerApi, this.secureStorageService);
   @override
   Future<ApiResult<RegisterEntity>> register(
     String? username,
@@ -37,9 +38,9 @@ class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
         ),
       );
 
-      // if (registerResponse.token != null) {
-      //   await secureStorageService.saveToken(registerResponse.token!);
-      // }
+      if (registerResponse.token != null) {
+        await secureStorageService.saveToken(registerResponse.token!);
+      }
 
       return ApiSuccessResult<RegisterEntity>(
         registerResponse.user!.toRegisterEntity(),

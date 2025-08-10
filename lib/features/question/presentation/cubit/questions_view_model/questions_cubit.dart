@@ -13,47 +13,30 @@ class QuestionsCubit extends Cubit<QuestionsState> {
   GetQuestionsUseCase getQuestionsUseCase;
   List<QuestionsEntity> questionsList = [];
   int currentIndex = 0;
-  List<int?> singleChoiceAnswers =
-      []; // For single-choice answers
-  List<List<bool>> multiChoiceAnswers =
-      []; // For multiple-choice answers
-  List<Color> answerColors =
-      []; // List to store answer colors
+  List<int?> singleChoiceAnswers = [];
+  List<List<bool>> multiChoiceAnswers = [];
+  List<Color> answerColors = [];
 
-  QuestionsCubit(this.getQuestionsUseCase)
-    : super(QuestionsInitial());
+  QuestionsCubit(this.getQuestionsUseCase) : super(QuestionsInitial());
 
   Future<void> getQuestionById() async {
     emit(QuestionsLoading());
-    // var token = SharedData.getData(key: StringCache.userToken);
-    // var id = SharedData.getData(key: StringCache.questionId);
     final result = await getQuestionsUseCase.call();
-    if (result
-        is ApiSuccessResult<List<QuestionsEntity>>) {
+    if (result is ApiSuccessResult<List<QuestionsEntity>>) {
       questionsList = result.data;
-      singleChoiceAnswers = List.filled(
-        questionsList.length,
-        null,
-      );
+      singleChoiceAnswers = List.filled(questionsList.length, null);
       multiChoiceAnswers = List.generate(
         questionsList.length,
         (_) => List.filled(4, false),
       );
-      answerColors = List.generate(
-        questionsList.length,
-        (_) => Colors.grey,
-      ); // Initialize with grey color
+      answerColors = List.generate(questionsList.length, (_) => Colors.grey);
       emit(QuestionsSuccess(questionsList));
-    } else if (result
-        is ApiErrorResult<List<QuestionsEntity>>) {
+    } else if (result is ApiErrorResult<List<QuestionsEntity>>) {
       emit(QuestionsFail(result.errorMessage));
     }
   }
 
-  void selectSingleChoiceAnswer(
-    int questionIndex,
-    int answerIndex,
-  ) {
+  void selectSingleChoiceAnswer(int questionIndex, int answerIndex) {
     singleChoiceAnswers[questionIndex] = answerIndex;
     emit(QuestionsSuccess(questionsList));
   }
@@ -63,8 +46,7 @@ class QuestionsCubit extends Cubit<QuestionsState> {
     int answerIndex,
     bool isSelected,
   ) {
-    multiChoiceAnswers[questionIndex][answerIndex] =
-        isSelected;
+    multiChoiceAnswers[questionIndex][answerIndex] = isSelected;
     emit(QuestionsSuccess(questionsList));
   }
 
@@ -88,9 +70,7 @@ class QuestionsCubit extends Cubit<QuestionsState> {
 
     for (int i = 0; i < totalQuestions; i++) {
       if (singleChoiceAnswers[i] != null &&
-          questionsList[i]
-                  .answers![singleChoiceAnswers[i]!]
-                  .key ==
+          questionsList[i].answers![singleChoiceAnswers[i]!].key ==
               questionsList[i].correct) {
         correctAnswer++;
       }
@@ -100,9 +80,7 @@ class QuestionsCubit extends Cubit<QuestionsState> {
       'correct': correctAnswer,
       'wrong': totalQuestions - correctAnswer,
       'total': totalQuestions,
-      'percentage':
-          ((correctAnswer / totalQuestions) * 100)
-              .toStringAsFixed(2),
+      'percentage': ((correctAnswer / totalQuestions) * 100).toStringAsFixed(2),
     };
   }
 }

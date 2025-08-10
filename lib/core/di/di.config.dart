@@ -62,7 +62,7 @@ import '../../features/question/domain/repos/get_questions_repo.dart' as _i575;
 import '../../features/question/domain/usecases/get_questions_use_case.dart'
     as _i756;
 import '../../features/question/presentation/cubit/questions_view_model/questions_cubit.dart'
-    as _i5;
+    as _i893;
 import '../../features/register/api/client/register_api.dart' as _i45;
 import '../../features/register/api/data_source_impl/register_remote_data_source_impl.dart'
     as _i318;
@@ -115,6 +115,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i275.GetQuestionsDataSource>(
       () => _i830.GetQuestionsDataSourceImpl(gh<_i807.QuestionApi>()),
     );
+    gh.factory<_i542.RegisterRemoteDataSource>(
+      () => _i318.RegisterRemoteDataSourceImpl(
+        gh<_i45.RegisterApi>(),
+        gh<_i1052.SecureStorageService>(),
+      ),
+    );
     gh.factory<_i575.GetQuestionsRepo>(
       () => _i855.GetQuestionsRepoImpl(gh<_i275.GetQuestionsDataSource>()),
     );
@@ -126,9 +132,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i756.GetQuestionsUseCase>(
       () => _i756.GetQuestionsUseCase(gh<_i575.GetQuestionsRepo>()),
-    );
-    gh.factory<_i542.RegisterRemoteDataSource>(
-      () => _i318.RegisterRemoteDataSourceImpl(gh<_i45.RegisterApi>()),
     );
     gh.factory<_i1033.LoginRemoteDataSource>(
       () => _i884.LoginRemoteDataSourceImpl(gh<_i313.LoginApiClient>()),
