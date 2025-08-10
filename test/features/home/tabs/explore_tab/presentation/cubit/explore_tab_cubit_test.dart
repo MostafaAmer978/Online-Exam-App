@@ -38,7 +38,7 @@ void main() {
       when(
         mockGetSubjectsUserCase.call(),
       ).thenAnswer((_) async => successResult);
-      return exploreTabCubit;
+      return ExploreTabCubit(mockGetSubjectsUserCase);
     },
     act: (cubit) => cubit.getSubjects(),
     expect: () => [
